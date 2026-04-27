@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Кот-утешитель 🐱</title>
+
+<style>
+body {
+    background: #1e1e1e;
+    color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+.card {
+    background: #2b2b2b;
+    padding: 25px;
+    border-radius: 16px;
+    width: 600px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+img {
+    width: 200px;
+    display: block;
+    margin: 10px auto;
+    border-radius: 12px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+pre {
+    white-space: pre-wrap;
+    background: #1a1a1a;
+    padding: 10px;
+    border-radius: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>🐱 Кот-утешитель</h2>
+
+<img src="/static/cat.png">
+
+<p>{{ greeting }}</p>
+
+<hr>
+
+{% if not cat_answer and not goodbye %}
+<form method="POST">
+    <input type="hidden" name="action" value="complain">
+    <p>Пожалуйся коту:</p>
+    <input type="text" name="user_text" placeholder="Например: меня бесит работа...">
+    <button type="submit">Пожаловаться</button>
+</form>
+{% endif %}
+
+{% if cat_answer %}
+<h3>🐱 Кот отвечает:</h3>
+<pre>{{ cat_answer }}</pre>
+
+<p>Будешь ещё жаловаться или уходишь?</p>
+
+<form method="POST" style="display:inline;">
+    <input type="hidden" name="action" value="complain">
+    <button type="submit">Ещё жалоба 🐾</button>
+</form>
+
+<form method="POST" style="display:inline;">
+    <input type="hidden" name="action" value="leave">
+    <button type="submit">Уйти</button>
+</form>
+{% endif %}
+
+{% if goodbye %}
+<h3>🐱 Кот:</h3>
+<p>Ну и иди тогда. Но возвращайся. Я буду тут. Мур.</p>
+{% endif %}
+
+</div>
+
+</body>
+</html>
