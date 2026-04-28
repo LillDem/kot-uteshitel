@@ -2,100 +2,100 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Кот-утешитель 🐱</title>
 
 <style>
 body {
-    background: #1e1e1e;
-    color: #f2f2f2;
+    margin: 0;
     font-family: Arial, sans-serif;
+    background: #1e1e2f;
+    color: white;
     display: flex;
     justify-content: center;
-    padding-top: 40px;
+    align-items: center;
+    height: 100vh;
 }
 
-.card {
-    background: #2b2b2b;
-    padding: 25px;
-    border-radius: 16px;
-    width: 600px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+.container {
+    width: 360px;
+    background: #2a2a40;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    text-align: center;
 }
 
-img {
-    width: 200px;
-    display: block;
-    margin: 10px auto;
-    border-radius: 12px;
+.cat {
+    width: 120px;
+    margin-bottom: 10px;
 }
 
-input {
+h1 {
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+textarea {
     width: 100%;
-    padding: 10px;
-    border-radius: 8px;
+    height: 80px;
+    border-radius: 10px;
     border: none;
+    padding: 10px;
     margin-top: 10px;
+    resize: none;
 }
 
 button {
     margin-top: 10px;
-    padding: 10px 15px;
+    padding: 10px;
+    width: 100%;
     border: none;
     border-radius: 10px;
+    background: #ff6b6b;
+    color: white;
+    font-size: 16px;
     cursor: pointer;
 }
 
-pre {
-    white-space: pre-wrap;
-    background: #1a1a1a;
+button:hover {
+    background: #ff4b4b;
+}
+
+.answer {
+    margin-top: 15px;
+    background: #1e1e2f;
     padding: 10px;
     border-radius: 10px;
 }
 </style>
-
 </head>
 
 <body>
 
-<div class="card">
+<div class="container">
 
-<h2>🐱 Кот-утешитель</h2>
+<img class="cat" src="{{ url_for('static', filename='cat.png') }}">
 
-<img src="/static/cat.png">
+<h1>{{ greeting }}</h1>
 
-<p>{{ greeting }}</p>
-
-<hr>
-
-{% if not cat_answer and not goodbye %}
 <form method="POST">
-    <input type="hidden" name="action" value="complain">
-    <p>Пожалуйся коту:</p>
-    <input type="text" name="user_text" placeholder="Например: меня бесит работа...">
-    <button type="submit">Пожаловаться</button>
+    <textarea name="user_text" placeholder="Пожалуйся коту..."></textarea>
+
+    <button name="action" value="complain">Пожаловаться</button>
+    <button name="action" value="leave">Уйти</button>
 </form>
-{% endif %}
 
 {% if cat_answer %}
-<h3>🐱 Кот отвечает:</h3>
-<pre>{{ cat_answer }}</pre>
-
-<p>Будешь ещё жаловаться или уходишь?</p>
-
-<form method="POST" style="display:inline;">
-    <input type="hidden" name="action" value="complain">
-    <button type="submit">Ещё жалоба 🐾</button>
-</form>
-
-<form method="POST" style="display:inline;">
-    <input type="hidden" name="action" value="leave">
-    <button type="submit">Уйти</button>
-</form>
+<div class="answer">
+    {{ cat_answer }}
+</div>
 {% endif %}
 
 {% if goodbye %}
-<h3>🐱 Кот:</h3>
-<p>Ну и иди тогда. Но возвращайся. Я буду тут. Мур.</p>
+<div class="answer">
+    Кот посмотрел тебе вслед. Осуждающе.
+</div>
 {% endif %}
 
 </div>
